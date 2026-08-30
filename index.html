@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seu Imóvel - Corretor de Imóveis</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="header" id="header">
+  <div class="header-container">
+    <div class="logo">
+      <!-- IMAGEM: logo -->
+      <img src="assets/images/logoo.png" alt="bem vindo!">
+      <span class="logo-texto">BEM VINDO!</span>
+    </div>
+    <nav class="nav" id="nav-menu">
+      <a href="#inicio">Início</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#imoveis">Imóveis</a>
+      <a href="#depoimentos">Depoimentos</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-mobile">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<!-- MENU MOBILE (aberto pelo ícone hamburguer) -->
+<div class="menu-mobile" id="menu-mobile">
+  <nav class="menu-mobile-nav">
+    <a href="#sobre" class="menu-mobile-link">Sobre</a>
+    <a href="#servicos" class="menu-mobile-link">Serviços</a>
+    <a href="#imoveis" class="menu-mobile-link">Imóveis</a>
+    <a href="#depoimentos" class="menu-mobile-link">Depoimentos</a>
+    <a href="#contato" class="menu-mobile-link">Contato</a>
+  </nav>
+  <div class="menu-mobile-logo">
+    <!-- mesma logo do cabeçalho, no lugar do ícone/avatar -->
+    <img src="assets/images/logoo.png" alt="Logo">
+  </div>
+</div>
+<div class="menu-overlay" id="menu-overlay"></div>
+
+<section class="hero" id="inicio">
+  <!-- IMAGEM: capa -->
+  <img src="assets/images/capa.png" alt="Fachada de imóvel" class="hero-imagem">
+  <div class="hero-conteudo">
+    <h1>O lugar certo <span>para o seu novo começo!</span></h1>
+    <p>Especialista em encontrar as melhores oportunidades para você viver ou investir com segurança e tranquilidade.</p>
+    <div class="hero-botoes">
+      <a href="#imoveis" class="btn btn-primario">Ver imóveis</a>
+      <a href="#" class="btn btn-secundario" id="btn-whatsapp">Falar no WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<section class="sobre" id="sobre">
+  <div class="sobre-imagem">
+    <!-- IMAGEM: sobre-mim -->
+    <img src="assets/images/foto.jpeg" alt="Corretor de imóveis">
+  </div>
+  <div class="sobre-conteudo">
+    <h2>Sobre mim</h2>
+    <p>Sou um profissional do mercado imobiliário comprometido em oferecer um atendimento próximo, transparente e personalizado em cada etapa da negociação.
+
+Meu trabalho vai além de apresentar imóveis. Busco compreender o que cada cliente realmente procura para encontrar oportunidades que façam sentido para seus objetivos, seja para comprar, vender ou investir.
+
+Acredito que uma negociação imobiliária deve ser conduzida com confiança, segurança e profissionalismo. Por isso, acompanho cada processo com atenção aos detalhes, buscando tornar a experiência mais simples, clara e tranquila para meus clientes.
+
+Meu propósito é transformar oportunidades em conquistas e ajudar você a encontrar o imóvel certo para o próximo capítulo da sua história..</p>
+    <div class="sobre-valores">
+      <div class="valor-item">
+        <img src="assets/images/icons/icon-atendimento.png" alt="">
+        <span>Atendimento personalizado</span>
+      </div>
+      <div class="valor-item">
+        <img src="assets/images/icons/icon-transparencia.png" alt="">
+        <span>Transparência e confiança</span>
+      </div>
+      <div class="valor-item">
+        <img src="assets/images/icons/icon-resultados.png" alt="">
+        <span>Foco em resultados</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARROSSEL DE DESTAQUES + BOTÃO DE AGENDAMENTO (logo abaixo de #sobre) -->
+<section class="carrossel-destaque" id="carrossel-destaque">
+  <div class="carrossel" id="carrossel">
+    <div class="carrossel-track" id="carrossel-track">
+      <div class="carrossel-slide">
+        <img src="assets/images/carrossel-1.jpg" alt="Imóvel em destaque 1" fetchpriority="auto" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="carrossel-slide">
+        <img src="assets/images/carrossel-2.jpg" alt="Imóvel em destaque 2" fetchpriority="auto" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="carrossel-slide">
+        <img src="assets/images/carrossel-3.jpg" alt="Imóvel em destaque 3" fetchpriority="auto" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+    </div>
+    <div class="custom-dot" id="carrossel-dots">
+      <span class="dot active" data-slide="0"></span>
+      <span class="dot" data-slide="1"></span>
+      <span class="dot" data-slide="2"></span>
+    </div>
+  </div>
+
+  <div id="buttoncontainer" class="buttoncontainer">
+    <button id="botao-agendamento" class="buttoncard" type="button">
+      <div class="buttoncard__icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M3 9H21" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M8 3V6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M16 3V6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="buttoncard__text">
+        <p class="buttoncard__titulo">Agende sua visita</p>
+        <p class="buttoncard__subtitulo">Fale com o corretor Evandro Neto</p>
+      </div>
+    </button>
+  </div>
+</section>
+
+<!-- MODAL: Agende uma visita -->
+<div class="modal-agendamento" id="modal-agendamento">
+  <div class="modal-agendamento-box">
+    <button class="modal-fechar" id="modal-fechar" aria-label="Fechar">&times;</button>
+    <h2>Agende uma visita</h2>
+    <p>Preencha os campos abaixo e agende sua visita técnica.</p>
+    <form id="form-agendamento" class="modal-form">
+      <label for="ag-nome">Nome completo *</label>
+      <input type="text" id="ag-nome" name="nome" placeholder="Nome" required>
+
+      <label for="ag-email">E-mail *</label>
+      <input type="email" id="ag-email" name="email" placeholder="nome@email.com" required>
+
+      <label for="ag-celular">Celular *</label>
+      <input type="tel" id="ag-celular" name="celular" placeholder="(00) 00000-0000" required>
+
+      <label for="ag-estado">Estado *</label>
+      <input type="text" id="ag-estado" name="estado" placeholder="Estado" required>
+
+      <label for="ag-cidade">Cidade *</label>
+      <input type="text" id="ag-cidade" name="cidade" placeholder="Cidade" required>
+
+      <button type="submit" class="btn btn-primario modal-btn-enviar">Agendar pelo WhatsApp</button>
+    </form>
+  </div>
+</div>
+
+<section class="servicos" id="servicos">
+  <h2>Meus serviços</h2>
+  <div class="servicos-grid">
+    <div class="servico-card">
+      <img src="assets/images/icons/icon-compra.png" alt="Compra">
+      <h3>Compra</h3>
+      <p>Encontre o imóvel perfeito para você e sua família.</p>
+    </div>
+    <div class="servico-card">
+      <img src="assets/images/icons/icon-venda.png" alt="Venda">
+      <h3>Venda</h3>
+      <p>Divulgação estratégica para vender seu imóvel com segurança.</p>
+    </div>
+    <div class="servico-card">
+      <img src="assets/images/icons/icon-locacao.png" alt="Locação">
+      <h3>Locação</h3>
+      <p>Opções de imóveis para morar ou investir com tranquilidade.</p>
+    </div>
+    <div class="servico-card">
+      <img src="assets/images/icons/icon-avaliacao.png" alt="Avaliação">
+      <h3>Avaliação</h3>
+      <p>Avaliação justa do seu imóvel com base no mercado atual.</p>
+    </div>
+  </div>
+</section>
+
+<section class="imoveis" id="imoveis">
+  <h2>Imóveis em destaque</h2>
+  <!-- app.js procura por este ID para inserir os cards vindos do Firebase -->
+  <div class="imoveis-grid" id="imoveis-lista">
+    <p class="imoveis-carregando" id="imoveis-carregando">Carregando imóveis...</p>
+  </div>
+</section>
+
+<section class="depoimentos" id="depoimentos">
+  <h2>O que meus clientes dizem</h2>
+  <div class="depoimentos-grid">
+    <div class="depoimento-card">
+      <p>"Excelente profissional! Atencioso, transparente e me ajudou a encontrar o imóvel ideal."</p>
+      <span>Juliana F.</span>
+    </div>
+    <div class="depoimento-card">
+      <p>"Vendeu meu imóvel rapidamente e pelo melhor preço. Super recomendo!"</p>
+      <span>Carlos A.</span>
+    </div>
+    <div class="depoimento-card">
+      <p>"Atendimento impecável do início ao fim. Me senti segura em todo o processo."</p>
+      <span>Mariana L.</span>
+    </div>
+  </div>
+</section>
+
+<section class="contato" id="contato">
+  <h2>Fale comigo</h2>
+  <div class="contato-container">
+    <div class="contato-info">
+      <p>(79) 9 8119-6565</p>
+      <p>@corretor_evandoneto</p>
+  
+      <p>Aracaju-se</p>
+    </div>
+    <form class="contato-form" id="form-contato">
+      <input type="text" placeholder="Seu nome" required>
+      <input type="email" placeholder="Seu e-mail" required>
+      <textarea placeholder="Sua mensagem" required></textarea>
+      <button type="submit" class="btn btn-primario">Enviar mensagem</button>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>&copy; 2026 Corretor Evandro Neto - Todos os direitos reservados
+    Nenhuma parte deste site pode ser reproduzida sem autorização prévia por escrito.</p>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="assets/js/firebase-config.js"></script>
+<script src="assets/js/app.js" defer></script>
+
+<script>
+  // ===== MENU MOBILE (hamburguer) =====
+  const menuToggle = document.getElementById('menu-toggle');
+  const menuMobile = document.getElementById('menu-mobile');
+  const menuOverlay = document.getElementById('menu-overlay');
+
+  function fecharMenuMobile() {
+    menuMobile.classList.remove('ativo');
+    menuOverlay.classList.remove('ativo');
+    menuToggle.classList.remove('ativo');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  menuToggle.addEventListener('click', () => {
+    const abrindo = !menuMobile.classList.contains('ativo');
+    menuMobile.classList.toggle('ativo', abrindo);
+    menuOverlay.classList.toggle('ativo', abrindo);
+    menuToggle.classList.toggle('ativo', abrindo);
+    menuToggle.setAttribute('aria-expanded', String(abrindo));
+  });
+
+  menuOverlay.addEventListener('click', fecharMenuMobile);
+  document.querySelectorAll('.menu-mobile-link').forEach(link => {
+    link.addEventListener('click', fecharMenuMobile);
+  });
+
+  // ===== CARROSSEL AUTOPLAY (3 imagens) =====
+  const carrosselTrack = document.getElementById('carrossel-track');
+  const carrosselDots = document.querySelectorAll('#carrossel-dots .dot');
+  let slideAtual = 0;
+  const totalSlides = carrosselDots.length;
+
+  function irParaSlide(indice) {
+    slideAtual = indice;
+    carrosselTrack.style.transform = `translateX(-${slideAtual * 100}%)`;
+    carrosselDots.forEach(dot => dot.classList.remove('active'));
+    carrosselDots[slideAtual].classList.add('active');
+  }
+
+  carrosselDots.forEach(dot => {
+    dot.addEventListener('click', () => irParaSlide(Number(dot.dataset.slide)));
+  });
+
+  setInterval(() => {
+    irParaSlide((slideAtual + 1) % totalSlides);
+  }, 5000);
+
+  // ===== MODAL "Agende uma visita" -> WhatsApp =====
+  const numeroWhatsapp = "5579981196565"; // (79) 9 8119-6565
+  const modalAgendamento = document.getElementById('modal-agendamento');
+  const botaoAgendamento = document.getElementById('botao-agendamento');
+  const modalFechar = document.getElementById('modal-fechar');
+  const formAgendamento = document.getElementById('form-agendamento');
+
+  botaoAgendamento.addEventListener('click', () => {
+    modalAgendamento.classList.add('ativo');
+  });
+
+  modalFechar.addEventListener('click', () => {
+    modalAgendamento.classList.remove('ativo');
+  });
+
+  modalAgendamento.addEventListener('click', (evento) => {
+    if (evento.target === modalAgendamento) {
+      modalAgendamento.classList.remove('ativo');
+    }
+  });
+
+  formAgendamento.addEventListener('submit', (evento) => {
+    evento.preventDefault();
+
+    const nome = document.getElementById('ag-nome').value;
+    const email = document.getElementById('ag-email').value;
+    const celular = document.getElementById('ag-celular').value;
+    const estado = document.getElementById('ag-estado').value;
+    const cidade = document.getElementById('ag-cidade').value;
+
+    const mensagem = `Olá! Tenho interesse em agendar uma visita técnica.\n\n` +
+      `Nome: ${nome}\n` +
+      `E-mail: ${email}\n` +
+      `Celular: ${celular}\n` +
+      `Estado: ${estado}\n` +
+      `Cidade: ${cidade}`;
+
+    const linkWhatsapp = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensagem)}`;
+    window.open(linkWhatsapp, '_blank');
+
+    modalAgendamento.classList.remove('ativo');
+    formAgendamento.reset();
+  });
+</script>
+</body>
+</html>

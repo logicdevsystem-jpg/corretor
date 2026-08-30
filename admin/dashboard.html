@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel do Corretor - Imóveis</title>
+<link rel="stylesheet" href="../assets/css/admin.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+
+<header class="admin-header">
+  <p class="admin-header-titulo">Painel do corretor</p>
+  <button class="btn btn-sair" onclick="fazerLogout()">Sair</button>
+</header>
+
+<main class="admin-main">
+
+  <div class="admin-resumo">
+    <div class="resumo-card">
+      <p class="resumo-label">Total</p>
+      <p class="resumo-numero" id="resumo-total">0</p>
+    </div>
+    <div class="resumo-card">
+      <p class="resumo-label">Disponíveis</p>
+      <p class="resumo-numero resumo-verde" id="resumo-disponiveis">0</p>
+    </div>
+    <div class="resumo-card">
+      <p class="resumo-label">Vendidos</p>
+      <p class="resumo-numero" id="resumo-vendidos">0</p>
+    </div>
+  </div>
+
+  <div class="admin-acoes">
+    <p id="lista-contagem">Carregando imóveis...</p>
+    <a href="imovel.html" class="btn btn-primario">+ Novo imóvel</a>
+  </div>
+
+  <div id="lista-imoveis" class="lista-imoveis">
+    <!-- admin.js insere as linhas de imóveis aqui -->
+  </div>
+
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="../assets/js/firebase-config.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/admin.js"></script>
+</body>
+</html>

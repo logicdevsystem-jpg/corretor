@@ -1,0 +1,723 @@
+/* ===== RESET E BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --cor-fundo-escuro: #0D1B2A;
+  --cor-fundo-secundario: #1B263B;
+  --cor-destaque: #D4AF37;
+  --cor-branco: #FFFFFF;
+  --cor-cinza-claro: #F5F5F5;
+  --fonte-titulo: 'Montserrat', sans-serif;
+  --fonte-texto: 'Poppins', sans-serif;
+}
+
+body {
+  font-family: var(--fonte-texto);
+  color: var(--cor-fundo-escuro);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3 {
+  font-family: var(--fonte-titulo);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.btn {
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.btn-primario {
+  background-color: var(--cor-destaque);
+  color: var(--cor-fundo-escuro);
+}
+
+.btn-primario:hover {
+  opacity: 0.85;
+}
+
+.btn-secundario {
+  background-color: transparent;
+  color: var(--cor-branco);
+  border: 2px solid var(--cor-branco);
+}
+
+.btn-secundario:hover {
+  background-color: var(--cor-branco);
+  color: var(--cor-fundo-escuro);
+}
+
+/* ===== HEADER ===== */
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: var(--cor-fundo-escuro);
+  z-index: 1000;
+  padding: 16px 0;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo img {
+  width: 40px;
+  height: 40px;
+}
+
+.logo-texto {
+  color: var(--cor-branco);
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+}
+
+.nav {
+  display: flex;
+  gap: 28px;
+}
+
+.nav a {
+  color: var(--cor-branco);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.nav a:hover {
+  color: var(--cor-destaque);
+}
+
+/* ===== MENU HAMBURGUER (mobile) ===== */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1101;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--cor-branco);
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+.menu-toggle.ativo span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.menu-toggle.ativo span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.ativo span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.menu-mobile {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 280px;
+  height: 100vh;
+  background-color: var(--cor-fundo-escuro);
+  z-index: 1100;
+  padding: 100px 32px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: right 0.35s ease;
+  box-shadow: -6px 0 24px rgba(0,0,0,0.35);
+}
+
+.menu-mobile.ativo {
+  right: 0;
+}
+
+.menu-mobile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.menu-mobile-link {
+  color: var(--cor-branco);
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 500;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.menu-mobile-link:hover {
+  color: var(--cor-destaque);
+}
+
+.menu-mobile-logo {
+  display: flex;
+  justify-content: center;
+  padding-top: 24px;
+}
+
+.menu-mobile-logo img {
+  width: 56px;
+  height: 56px;
+}
+
+.menu-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(13,27,42,0.6);
+  z-index: 1050;
+}
+
+.menu-overlay.ativo {
+  display: block;
+}
+
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.hero-imagem {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(13,27,42,0.9) 30%, rgba(13,27,42,0.3) 100%);
+  z-index: -1;
+}
+
+.hero-conteudo {
+  max-width: 600px;
+  padding: 0 24px;
+  margin: 0 auto;
+  color: var(--cor-branco);
+}
+
+.hero-conteudo h1 {
+  font-size: 42px;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.hero-conteudo h1 span {
+  color: var(--cor-destaque);
+}
+
+.hero-conteudo p {
+  font-size: 16px;
+  margin-bottom: 28px;
+}
+
+.hero-botoes {
+  display: flex;
+  gap: 16px;
+}
+
+/* ===== SOBRE ===== */
+.sobre {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.sobre-imagem img {
+  border-radius: 12px;
+}
+
+.sobre-conteudo h2 {
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+
+.sobre-conteudo p {
+  color: #444;
+  margin-bottom: 28px;
+}
+
+.sobre-valores {
+  display: flex;
+  gap: 24px;
+}
+
+.valor-item {
+  text-align: center;
+  font-size: 13px;
+  max-width: 100px;
+}
+
+.valor-item img {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 8px;
+}
+
+/* ===== CARROSSEL DE DESTAQUES (logo abaixo de #sobre) ===== */
+.carrossel-destaque {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 100px;
+}
+
+.carrossel {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.carrossel-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s ease-in-out;
+}
+
+.carrossel-slide {
+  min-width: 100%;
+  height: 100%;
+}
+
+.custom-dot {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 5;
+}
+
+.custom-dot .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.custom-dot .dot.active {
+  background-color: var(--cor-destaque);
+  transform: scale(1.2);
+}
+
+/* ===== BOTÃO "Agende sua visita" ===== */
+.buttoncontainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.buttoncard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background-color: var(--cor-fundo-secundario);
+  border: 1px solid var(--cor-destaque);
+  border-radius: 12px;
+  padding: 20px 32px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.buttoncard:hover {
+  background-color: var(--cor-destaque);
+}
+
+.buttoncard:hover .buttoncard__titulo,
+.buttoncard:hover .buttoncard__subtitulo {
+  color: var(--cor-fundo-escuro);
+}
+
+.buttoncard__icon {
+  width: 40px;
+  height: 40px;
+  color: var(--cor-destaque);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+
+.buttoncard:hover .buttoncard__icon {
+  color: var(--cor-fundo-escuro);
+}
+
+.buttoncard__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.buttoncard__text {
+  text-align: left;
+}
+
+.buttoncard__titulo {
+  color: var(--cor-branco);
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.buttoncard__subtitulo {
+  color: var(--cor-cinza-claro);
+  font-size: 13px;
+  transition: 0.3s;
+}
+
+/* ===== MODAL "Agende uma visita" ===== */
+.modal-agendamento {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(13,27,42,0.7);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modal-agendamento.ativo {
+  display: flex;
+}
+
+.modal-agendamento-box {
+  background-color: var(--cor-branco);
+  border-radius: 12px;
+  max-width: 460px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 32px;
+  position: relative;
+}
+
+.modal-fechar {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  color: #888;
+}
+
+.modal-agendamento-box h2 {
+  font-size: 22px;
+  margin-bottom: 8px;
+  color: var(--cor-fundo-escuro);
+}
+
+.modal-agendamento-box p {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modal-form label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--cor-fundo-escuro);
+  margin-bottom: -8px;
+}
+
+.modal-form input {
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-family: var(--fonte-texto);
+  font-size: 14px;
+}
+
+.modal-btn-enviar {
+  margin-top: 8px;
+  width: 100%;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+}
+
+/* ===== SERVIÇOS ===== */
+.servicos {
+  background-color: var(--cor-fundo-escuro);
+  padding: 100px 24px;
+  text-align: center;
+}
+
+.servicos h2 {
+  color: var(--cor-branco);
+  font-size: 28px;
+  margin-bottom: 48px;
+}
+
+.servicos-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.servico-card {
+  background-color: var(--cor-fundo-secundario);
+  padding: 32px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(212,175,55,0.2);
+}
+
+.servico-card img {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 16px;
+}
+
+.servico-card h3 {
+  color: var(--cor-destaque);
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.servico-card p {
+  color: var(--cor-cinza-claro);
+  font-size: 14px;
+}
+
+/* ===== IMÓVEIS ===== */
+.imoveis {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 24px;
+  text-align: center;
+}
+
+.imoveis h2 {
+  font-size: 28px;
+  margin-bottom: 48px;
+}
+
+.imoveis-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  text-align: left;
+}
+
+.imoveis-carregando {
+  grid-column: 1 / -1;
+  color: #888;
+}
+
+/* Estilo dos cards que o app.js vai criar dinamicamente */
+.imovel-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.imovel-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.imovel-card-info {
+  padding: 16px;
+}
+
+.imovel-card-categoria {
+  font-size: 12px;
+  color: var(--cor-destaque);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.imovel-card-titulo {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 6px 0;
+}
+
+.imovel-card-preco {
+  font-size: 18px;
+  color: var(--cor-fundo-escuro);
+  font-weight: 700;
+}
+
+.imovel-card-vendido {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 4px 10px;
+  background-color: #eee;
+  color: #777;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+/* ===== DEPOIMENTOS ===== */
+.depoimentos {
+  background-color: var(--cor-cinza-claro);
+  padding: 100px 24px;
+  text-align: center;
+}
+
+.depoimentos h2 {
+  font-size: 28px;
+  margin-bottom: 48px;
+}
+
+.depoimentos-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.depoimento-card {
+  background-color: var(--cor-branco);
+  padding: 28px;
+  border-radius: 12px;
+  text-align: left;
+}
+
+.depoimento-card p {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 16px;
+}
+
+.depoimento-card span {
+  font-weight: 600;
+  color: var(--cor-fundo-escuro);
+}
+
+/* ===== CONTATO ===== */
+.contato {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 24px;
+}
+
+.contato h2 {
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.contato-container {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 48px;
+}
+
+.contato-info p {
+  margin-bottom: 12px;
+  color: #444;
+}
+
+.contato-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contato-form input,
+.contato-form textarea {
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-family: var(--fonte-texto);
+}
+
+.contato-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background-color: var(--cor-fundo-escuro);
+  color: var(--cor-cinza-claro);
+  text-align: center;
+  padding: 24px;
+  font-size: 13px;
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 768px) {
+  .nav { display: none; }
+  .menu-toggle { display: flex; }
+  .sobre { grid-template-columns: 1fr; }
+  .servicos-grid { grid-template-columns: repeat(2, 1fr); }
+  .depoimentos-grid { grid-template-columns: 1fr; }
+  .contato-container { grid-template-columns: 1fr; }
+  .hero-conteudo h1 { font-size: 30px; }
+  .carrossel { height: 260px; }
+  .buttoncard { padding: 16px 20px; }
+}
