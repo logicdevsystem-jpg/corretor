@@ -1,5 +1,27 @@
 const listaImoveis = document.getElementById("lista-imoveis");
 
+// Chave da API do ImgBB, usada para subir as fotos dos imóveis (substitui o Firebase Storage)
+const IMGBB_API_KEY = "c264cd764bab28372e4a9c57bc9c07c6";
+
+// Envia uma imagem (já comprimida) para o ImgBB e retorna a URL pública dela
+async function enviarFotoParaImgbb(arquivo) {
+  const formData = new FormData();
+  formData.append("image", arquivo);
+
+  const resposta = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+    method: "POST",
+    body: formData
+  });
+
+  const dados = await resposta.json();
+
+  if (!dados.success) {
+    throw new Error("Falha ao enviar foto para o ImgBB");
+  }
+
+  return dados.data.url;
+}
+
 // Só roda esse código se estivermos na página do dashboard
 if (listaImoveis) {
 
@@ -16,7 +38,7 @@ if (listaImoveis) {
       <div class="imovel-linha">
         <img class="imovel-linha-foto" src="${foto}" alt="${imovel.titulo}">
         <div class="imovel-linha-info">
-          <p class="imovel-linha-titulo">${imovel.titulo} - ${imovel.bairro}</p>
+          <p class="imovel-linha-titulo">${imovel.titulo} - ${imovel.bairro}${imovel.cidade ? ", " + imovel.cidade : ""}</p>
           <p class="imovel-linha-preco">${formatarPreco(imovel.preco)}</p>
         </div>
         <span class="status-badge ${statusClasse}">${statusTexto}</span>
@@ -136,9 +158,49 @@ if (formImovel) {
   const inputStatus = document.getElementById("input-status");
   const grupoVendidoAte = document.getElementById("grupo-vendido-ate");
   const inputVendidoAte = document.getElementById("input-vendido-ate");
+  const inputCidade = document.getElementById("input-cidade");
+  const inputBairro = document.getElementById("input-bairro");
 
   let fotosExistentes = [];
   let fotosExistentesRemovidas = [];
+
+  // ---- Seleção em cascata de cidade/bairro ----
+  function popularSelectCidadesAdmin() {
+    if (!inputCidade) return;
+    Object.keys(BAIRROS_POR_CIDADE).forEach((cidade) => {
+      const opcao = document.createElement("option");
+      opcao.value = cidade;
+      opcao.textContent = cidade;
+      inputCidade.appendChild(opcao);
+    });
+  }
+
+  function atualizarSelectBairrosAdmin(bairroSelecionado) {
+    if (!inputBairro) return;
+    const cidadeEscolhida = inputCidade.value;
+
+    inputBairro.innerHTML = `<option value="">Selecione o bairro</option>`;
+
+    if (!cidadeEscolhida) {
+      inputBairro.disabled = true;
+      return;
+    }
+
+    (BAIRROS_POR_CIDADE[cidadeEscolhida] || []).forEach((bairro) => {
+      const opcao = document.createElement("option");
+      opcao.value = bairro;
+      opcao.textContent = bairro;
+      if (bairro === bairroSelecionado) opcao.selected = true;
+      inputBairro.appendChild(opcao);
+    });
+
+    inputBairro.disabled = false;
+  }
+
+  if (inputCidade) {
+    popularSelectCidadesAdmin();
+    inputCidade.addEventListener("change", () => atualizarSelectBairrosAdmin());
+  }
 
   // ---- Preview das fotos já salvas (edição) ----
   function renderizarFotosExistentes() {
@@ -205,7 +267,10 @@ if (formImovel) {
       if (doc.exists) {
         const imovel = doc.data();
         document.getElementById("input-titulo").value = imovel.titulo;
-        document.getElementById("input-bairro").value = imovel.bairro;
+        if (inputCidade) {
+          inputCidade.value = imovel.cidade || "";
+          atualizarSelectBairrosAdmin(imovel.bairro);
+        }
         inputPreco.value = numeroParaPrecoFormatado(imovel.preco);
         document.getElementById("input-categoria").value = imovel.categoria;
         inputStatus.value = imovel.status;
@@ -233,10 +298,7 @@ if (formImovel) {
 
       for (let i = 0; i < arquivos.length; i++) {
         const arquivoComprimido = await comprimirImagem(arquivos[i]);
-        const caminho = `imoveis/${Date.now()}_${i}.jpg`;
-        const ref = storage.ref(caminho);
-        await ref.put(arquivoComprimido);
-        const url = await ref.getDownloadURL();
+        const url = await enviarFotoParaImgbb(arquivoComprimido);
         urlsFotos.push(url);
       }
 
@@ -249,7 +311,8 @@ if (formImovel) {
 
       const dadosImovel = {
         titulo: document.getElementById("input-titulo").value,
-        bairro: document.getElementById("input-bairro").value,
+        cidade: inputCidade.value,
+        bairro: inputBairro.value,
         preco: precoFormatadoParaNumero(inputPreco.value),
         categoria: document.getElementById("input-categoria").value,
         status: inputStatus.value,
@@ -266,14 +329,9 @@ if (formImovel) {
         await db.collection("imoveis").add(dadosImovel);
       }
 
-      // Remove do Storage as fotos que o corretor excluiu na edição
-      fotosExistentesRemovidas.forEach((url) => {
-        try {
-          storage.refFromURL(url).delete();
-        } catch (erroRemocao) {
-          console.warn("Não foi possível remover foto antiga:", erroRemocao);
-        }
-      });
+      // Observação: o ImgBB (plano grátis) não oferece exclusão automática via API key simples,
+      // então fotos removidas na edição só saem da lista do imóvel, mas continuam hospedadas lá
+      // (sem custo, já que o plano é gratuito e sem cobrança por armazenamento).
 
       window.location.href = "dashboard.html";
 

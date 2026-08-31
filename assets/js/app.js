@@ -35,17 +35,88 @@ function criarCardImovel(imovel) {
     ? `<span class="imovel-card-vendido">Vendido</span>`
     : "";
 
+  const localizacao = imovel.cidade ? `${imovel.bairro}, ${imovel.cidade}` : imovel.bairro;
+
   return `
     <div class="imovel-card">
       <img src="${fotoPrincipal}" alt="${imovel.titulo}">
       <div class="imovel-card-info">
         <span class="imovel-card-categoria">${imovel.categoria}</span>
-        <h3 class="imovel-card-titulo">${imovel.titulo} - ${imovel.bairro}</h3>
+        <h3 class="imovel-card-titulo">${imovel.titulo} - ${localizacao}</h3>
         <p class="imovel-card-preco">${formatarPreco(imovel.preco)}</p>
         ${vendidoTag}
       </div>
     </div>
   `;
+}
+
+// ===== FILTRO DE CIDADE / BAIRRO =====
+let todosImoveis = [];
+
+const filtroCidade = document.getElementById("filtro-cidade");
+const filtroBairro = document.getElementById("filtro-bairro");
+
+function popularSelectCidades() {
+  if (!filtroCidade) return;
+  Object.keys(BAIRROS_POR_CIDADE).forEach((cidade) => {
+    const opcao = document.createElement("option");
+    opcao.value = cidade;
+    opcao.textContent = cidade;
+    filtroCidade.appendChild(opcao);
+  });
+}
+
+function atualizarSelectBairros() {
+  if (!filtroBairro) return;
+  const cidadeEscolhida = filtroCidade.value;
+
+  filtroBairro.innerHTML = `<option value="">Todos os bairros</option>`;
+
+  if (!cidadeEscolhida) {
+    filtroBairro.disabled = true;
+    return;
+  }
+
+  (BAIRROS_POR_CIDADE[cidadeEscolhida] || []).forEach((bairro) => {
+    const opcao = document.createElement("option");
+    opcao.value = bairro;
+    opcao.textContent = bairro;
+    filtroBairro.appendChild(opcao);
+  });
+
+  filtroBairro.disabled = false;
+}
+
+function renderizarImoveis() {
+  const container = document.getElementById("imoveis-lista");
+  const cidadeEscolhida = filtroCidade ? filtroCidade.value : "";
+  const bairroEscolhido = filtroBairro ? filtroBairro.value : "";
+
+  const visiveis = todosImoveis.filter((imovel) => {
+    if (!deveExibirImovel(imovel)) return false;
+    if (cidadeEscolhida && imovel.cidade !== cidadeEscolhida) return false;
+    if (bairroEscolhido && imovel.bairro !== bairroEscolhido) return false;
+    return true;
+  });
+
+  if (visiveis.length === 0) {
+    container.innerHTML = `<p class="imoveis-carregando">Nenhum imóvel encontrado para esse filtro.</p>`;
+    return;
+  }
+
+  container.innerHTML = visiveis.map(criarCardImovel).join("");
+}
+
+if (filtroCidade) {
+  popularSelectCidades();
+  filtroCidade.addEventListener("change", () => {
+    atualizarSelectBairros();
+    renderizarImoveis();
+  });
+}
+
+if (filtroBairro) {
+  filtroBairro.addEventListener("change", renderizarImoveis);
 }
 
 // Busca os imóveis no Firestore e mostra na tela
@@ -56,20 +127,14 @@ function carregarImoveis() {
     .orderBy("criadoEm", "desc")
     .get()
     .then((resultado) => {
-      if (resultado.empty) {
+      todosImoveis = resultado.docs.map((doc) => doc.data());
+
+      if (todosImoveis.length === 0) {
         container.innerHTML = `<p class="imoveis-carregando">Nenhum imóvel cadastrado ainda.</p>`;
         return;
       }
 
-      let html = "";
-      resultado.forEach((doc) => {
-        const imovel = doc.data();
-        if (deveExibirImovel(imovel)) {
-          html += criarCardImovel(imovel);
-        }
-      });
-
-      container.innerHTML = html || `<p class="imoveis-carregando">Nenhum imóvel disponível no momento.</p>`;
+      renderizarImoveis();
     })
     .catch((erro) => {
       console.error("Erro ao carregar imóveis:", erro);

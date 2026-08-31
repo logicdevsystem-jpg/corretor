@@ -16,3 +16,28 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const storage = firebase.storage();
 const auth = firebase.auth();
+
+// Cidades e bairros atendidos pelo corretor (usado no filtro da one page e no cadastro do admin)
+const BAIRROS_POR_CIDADE = {
+  "Aracaju": [
+    "Aeroporto", "América", "Atalaia", "Aruana", "Bugio", "Capucho", "Centro",
+    "Cirurgia", "Coroa do Meio", "Farolândia", "Getúlio Vargas", "Grageru",
+    "Inácio Barbosa", "Industrial", "Jabotiana", "Jardins", "José Conrado de Araújo",
+    "Lamarão", "Luzia", "Mosqueiro", "Novo Paraíso", "Olaria", "Palestina",
+    "Pereira Lobo", "Ponto Novo", "Porto Dantas", "Salgado Filho", "Santa Maria",
+    "Santo Antônio", "Santos Dumont", "São Conrado", "São José", "Siqueira Campos",
+    "Soledade", "Suíssa", "Treze de Julho"
+  ],
+  "Nossa Senhora do Socorro": [
+    "Bugio", "Centro", "Conjunto Governador João Alves Filho", "Distrito Industrial",
+    "Marcos Freire I", "Marcos Freire II", "Marcos Freire III", "Palestina",
+    "Parque dos Faróis", "Piabeta", "Taiçoca de Dentro", "Taiçoca de Fora"
+  ],
+  "Barra dos Coqueiros": [
+    "Alphaville", "Antônio Pedro", "Atalaia Nova", "Baixo", "Beira Rio",
+    "Brisas de Atalaia", "Caminho da Praia", "Centro", "Costa Paradiso",
+    "Espaço Tropical", "Governador Marcelo Déda", "Luar da Barra", "Marivan",
+    "Moisés Gomes", "Olimar", "Paraíso da Barra", "Prisco Viana", "Quintas da Barra",
+    "Rio das Canas", "Serigy", "Zona de Expansão (Capuã)"
+  ]
+};

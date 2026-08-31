@@ -21,31 +21,62 @@
 
   <form id="form-imovel" class="form-imovel">
 
-    <label for="input-fotos" class="upload-label">
-      Clique para escolher as fotos (pode escolher várias)
-    </label>
-    <input type="file" id="input-fotos" accept="image/*" multiple>
+    <div class="form-secao">
+      <p class="form-secao-titulo">Fotos</p>
 
-    <input type="text" id="input-titulo" placeholder="Título do imóvel" required>
-    <input type="text" id="input-bairro" placeholder="Bairro / endereço" required>
+      <label for="input-fotos" class="upload-label">
+        Clique para escolher as fotos (pode escolher várias)
+      </label>
+      <input type="file" id="input-fotos" accept="image/*" multiple hidden>
 
-    <div class="form-linha">
-      <input type="number" id="input-preco" placeholder="Preço (R$)" required>
-      <select id="input-categoria" required>
-        <option value="Apartamento">Apartamento</option>
-        <option value="Casa">Casa</option>
-        <option value="Terreno">Terreno</option>
-        <option value="Comercial">Comercial</option>
-      </select>
+      <div id="preview-fotos" class="preview-fotos"></div>
     </div>
 
-    <select id="input-status">
-      <option value="disponivel">Disponível</option>
-      <option value="vendido">Vendido</option>
-    </select>
+    <div class="form-secao">
+      <p class="form-secao-titulo">Informações do imóvel</p>
 
-    <input type="url" id="input-video" placeholder="Link do vídeo (YouTube) - opcional">
-    <textarea id="input-descricao" placeholder="Descrição do imóvel"></textarea>
+      <input type="text" id="input-titulo" placeholder="Título do imóvel" required>
+
+      <div class="form-linha">
+        <select id="input-cidade" required>
+          <option value="">Selecione a cidade</option>
+        </select>
+        <select id="input-bairro" required disabled>
+          <option value="">Selecione o bairro</option>
+        </select>
+      </div>
+
+      <div class="form-linha">
+        <div class="input-com-prefixo">
+          <span class="input-prefixo">R$</span>
+          <input type="text" id="input-preco" inputmode="decimal" placeholder="0,00" required>
+        </div>
+        <select id="input-categoria" required>
+          <option value="Apartamento">Apartamento</option>
+          <option value="Casa">Casa</option>
+          <option value="Terreno">Terreno</option>
+          <option value="Comercial">Comercial</option>
+        </select>
+      </div>
+
+      <input type="url" id="input-video" placeholder="Link do vídeo (YouTube) - opcional">
+      <textarea id="input-descricao" placeholder="Descrição do imóvel"></textarea>
+    </div>
+
+    <div class="form-secao">
+      <p class="form-secao-titulo">Status</p>
+
+      <select id="input-status">
+        <option value="disponivel">Disponível</option>
+        <option value="vendido">Vendido</option>
+      </select>
+
+      <div id="grupo-vendido-ate" class="grupo-vendido-ate">
+        <label for="input-vendido-ate">Ocultar da vitrine a partir de</label>
+        <input type="date" id="input-vendido-ate">
+        <p class="campo-ajuda">Deixe em branco para ocultar imediatamente ao marcar como vendido.</p>
+      </div>
+    </div>
 
     <p id="imovel-erro" class="login-erro"></p>
 

@@ -187,6 +187,17 @@ Meu propósito é transformar oportunidades em conquistas e ajudar você a encon
 
 <section class="imoveis" id="imoveis">
   <h2>Imóveis em destaque</h2>
+
+  <!-- FILTRO DE BUSCA POR CIDADE E BAIRRO -->
+  <div class="filtro-imoveis">
+    <select id="filtro-cidade">
+      <option value="">Selecione a cidade</option>
+    </select>
+    <select id="filtro-bairro" disabled>
+      <option value="">Todos os bairros</option>
+    </select>
+  </div>
+
   <!-- app.js procura por este ID para inserir os cards vindos do Firebase -->
   <div class="imoveis-grid" id="imoveis-lista">
     <p class="imoveis-carregando" id="imoveis-carregando">Carregando imóveis...</p>
@@ -289,7 +300,7 @@ Meu propósito é transformar oportunidades em conquistas e ajudar você a encon
   }, 5000);
 
   // ===== MODAL "Agende uma visita" -> WhatsApp =====
-  const numeroWhatsapp = "5579981196565"; // (79) 9 8119-6565
+  const numeroWhatsappAgendamento = "5579981196565"; // (79) 9 8119-6565
   const modalAgendamento = document.getElementById('modal-agendamento');
   const botaoAgendamento = document.getElementById('botao-agendamento');
   const modalFechar = document.getElementById('modal-fechar');
@@ -325,7 +336,7 @@ Meu propósito é transformar oportunidades em conquistas e ajudar você a encon
       `Estado: ${estado}\n` +
       `Cidade: ${cidade}`;
 
-    const linkWhatsapp = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensagem)}`;
+    const linkWhatsapp = `https://wa.me/${numeroWhatsappAgendamento}?text=${encodeURIComponent(mensagem)}`;
     window.open(linkWhatsapp, '_blank');
 
     modalAgendamento.classList.remove('ativo');
