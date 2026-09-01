@@ -546,6 +546,12 @@ img {
   margin: 0 auto 16px;
 }
 
+/* O ícone da Locação (3º card) tem mais espaço vazio dentro do próprio arquivo
+   de imagem, então visualmente fica menor que os outros — compensamos com um zoom leve */
+.servicos-grid .servico-card:nth-child(3) img {
+  transform: scale(1.35);
+}
+
 .servico-card h3 {
   color: var(--cor-destaque);
   font-size: 18px;
@@ -759,4 +765,12 @@ img {
   .contato-container { grid-template-columns: 1fr; }
   .hero-conteudo h1 { font-size: 30px; }
   .buttoncard { padding: 16px 20px; }
+  .hero-botoes { gap: 10px; }
+  .hero-botoes .btn {
+    flex: 1;
+    padding: 12px 10px;
+    font-size: 13px;
+    text-align: center;
+    white-space: nowrap;
+  }
 }
