@@ -6,7 +6,7 @@ const IMGBB_API_KEY = "c264cd764bab28372e4a9c57bc9c07c6";
 // Envia uma imagem (já comprimida) para o ImgBB e retorna a URL pública dela
 async function enviarFotoParaImgbb(arquivo) {
   const formData = new FormData();
-  formData.append("image", arquivo);
+  formData.append("image", arquivo, `imovel-${Date.now()}.jpg`);
 
   const resposta = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
     method: "POST",

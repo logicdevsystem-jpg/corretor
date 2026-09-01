@@ -600,7 +600,7 @@ img {
 
 .imoveis-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
   text-align: left;
 }
@@ -619,8 +619,9 @@ img {
 
 .imovel-card img {
   width: 100%;
-  height: 180px;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
+  display: block;
 }
 
 .imovel-card-info {
