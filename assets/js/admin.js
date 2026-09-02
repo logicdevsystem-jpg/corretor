@@ -87,6 +87,100 @@ if (listaImoveis) {
 
 }
 
+// ===== DEPOIMENTOS (dashboard.html) =====
+// Feedback de venda cadastrado pelo corretor, que passa a aparecer
+// automaticamente na seção "O que meus clientes dizem" do site.
+const formDepoimento = document.getElementById("form-depoimento");
+
+if (formDepoimento) {
+
+  const selectImovelDepoimento = document.getElementById("depoimento-imovel");
+  const listaDepoimentos = document.getElementById("lista-depoimentos");
+
+  function popularSelectImoveisVendidos() {
+    db.collection("imoveis").where("status", "==", "vendido").get().then((resultado) => {
+      resultado.forEach((doc) => {
+        const imovel = doc.data();
+        const opcao = document.createElement("option");
+        opcao.value = doc.id;
+        opcao.textContent = `${imovel.titulo} - ${imovel.bairro}`;
+        selectImovelDepoimento.appendChild(opcao);
+      });
+    });
+  }
+
+  function criarLinhaDepoimento(id, depoimento) {
+    return `
+      <div class="depoimento-linha">
+        <div class="depoimento-linha-info">
+          <p class="depoimento-linha-texto">"${depoimento.texto}"</p>
+          <p class="depoimento-linha-cliente">${depoimento.clienteNome}${depoimento.imovelTitulo ? " · " + depoimento.imovelTitulo : ""}</p>
+        </div>
+        <button onclick="excluirDepoimento('${id}')">Excluir</button>
+      </div>
+    `;
+  }
+
+  function carregarDepoimentos() {
+    db.collection("depoimentos").orderBy("criadoEm", "desc").get().then((resultado) => {
+      let html = "";
+      resultado.forEach((doc) => {
+        html += criarLinhaDepoimento(doc.id, doc.data());
+      });
+      listaDepoimentos.innerHTML = html || `<p style="padding:16px;">Nenhum depoimento publicado ainda.</p>`;
+    }).catch((erro) => {
+      console.error(erro);
+      listaDepoimentos.innerHTML = `<p style="padding:16px;">Erro ao carregar depoimentos.</p>`;
+    });
+  }
+
+  function excluirDepoimento(id) {
+    if (confirm("Tem certeza que deseja excluir este depoimento?")) {
+      db.collection("depoimentos").doc(id).delete().then(() => {
+        carregarDepoimentos();
+      });
+    }
+  }
+
+  formDepoimento.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btnSalvar = formDepoimento.querySelector("button[type='submit']");
+    const erroTexto = document.getElementById("depoimento-erro");
+    const sucessoTexto = document.getElementById("depoimento-sucesso");
+
+    erroTexto.textContent = "";
+    sucessoTexto.textContent = "";
+    btnSalvar.disabled = true;
+    btnSalvar.textContent = "Publicando...";
+
+    try {
+      const imovelSelecionado = selectImovelDepoimento.options[selectImovelDepoimento.selectedIndex];
+
+      await db.collection("depoimentos").add({
+        clienteNome: document.getElementById("depoimento-cliente").value,
+        texto: document.getElementById("depoimento-texto").value,
+        imovelId: selectImovelDepoimento.value || null,
+        imovelTitulo: selectImovelDepoimento.value ? imovelSelecionado.textContent : null,
+        criadoEm: firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+      sucessoTexto.textContent = "Depoimento publicado com sucesso!";
+      formDepoimento.reset();
+      carregarDepoimentos();
+    } catch (erro) {
+      console.error(erro);
+      erroTexto.textContent = "Erro ao publicar depoimento. Tente novamente.";
+    } finally {
+      btnSalvar.disabled = false;
+      btnSalvar.textContent = "Publicar depoimento";
+    }
+  });
+
+  popularSelectImoveisVendidos();
+  carregarDepoimentos();
+
+}
+
 // Reduz a foto automaticamente antes de enviar (corretor não precisa se preocupar com tamanho)
 function comprimirImagem(arquivo, larguraMaxima = 1600, qualidade = 0.75) {
   return new Promise((resolve) => {

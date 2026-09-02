@@ -225,6 +225,19 @@ img {
   height: 100%;
   object-fit: cover;
   z-index: -2;
+  animation: kenBurnsHero 18s ease-in-out infinite alternate;
+}
+
+/* Efeito de zoom lento e contínuo. Como a animação está presa ao seletor .hero-imagem
+   (e não a uma imagem específica), ela funciona automaticamente mesmo se a foto
+   dentro dessa tag for trocada por uma nova no futuro. */
+@keyframes kenBurnsHero {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-imagem { animation: none; }
 }
 
 .hero::before {
@@ -263,6 +276,33 @@ img {
 .hero-botoes {
   display: flex;
   gap: 16px;
+}
+
+.hero-botoes .btn {
+  animation: pulsarBotaoHero 2.6s ease-in-out infinite;
+}
+
+.hero-botoes .btn-secundario {
+  animation-delay: 0.4s;
+}
+
+.hero-botoes .btn:active {
+  transform: scale(0.97);
+}
+
+@keyframes pulsarBotaoHero {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212,175,55,0.35); }
+  50% { box-shadow: 0 0 0 8px rgba(212,175,55,0); }
+}
+
+@media (hover: hover) {
+  .hero-botoes .btn:hover {
+    transform: translateY(-3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-botoes .btn { animation: none; }
 }
 
 /* ===== SOBRE ===== */
@@ -717,9 +757,16 @@ img {
 }
 
 .contato-container {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.contato-info {
+  text-align: center;
 }
 
 .contato-info p {
@@ -728,6 +775,7 @@ img {
 }
 
 .contato-form {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -750,9 +798,147 @@ img {
 .footer {
   background-color: var(--cor-fundo-escuro);
   color: var(--cor-cinza-claro);
-  text-align: center;
-  padding: 24px;
+  padding: 48px 24px 0;
+}
+
+.footer-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid rgba(212,175,55,0.25);
+}
+
+.footer-creci {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.footer-creci-selo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border: 2px solid var(--cor-destaque);
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: var(--cor-branco);
+  flex-shrink: 0;
+}
+
+.footer-creci-selo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 6px;
+}
+
+.footer-creci-texto {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.footer-creci-texto strong {
+  color: var(--cor-branco);
+  font-family: var(--fonte-titulo);
   font-size: 13px;
+}
+
+.footer-creci-texto span {
+  color: var(--cor-destaque);
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.footer-dados {
+  flex: 1;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.footer-dado-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.footer-dado-item svg {
+  width: 20px;
+  height: 20px;
+  color: var(--cor-destaque);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.footer-dado-item div {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-dado-item strong {
+  color: var(--cor-branco);
+  font-family: var(--fonte-titulo);
+}
+
+.footer-cargo {
+  color: var(--cor-destaque);
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.footer-legal {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 0;
+  font-size: 12px;
+  color: rgba(245,245,245,0.6);
+  text-align: center;
+  border-bottom: 1px solid rgba(212,175,55,0.15);
+}
+
+.footer-copy {
+  text-align: center;
+  padding: 16px 0;
+  font-size: 13px;
+}
+
+/* ===== ANIMAÇÕES AO ROLAR A PÁGINA ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visivel {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* leve efeito extra só no mouse (desktop) */
+@media (hover: hover) {
+  .servico-card, .valor-item, .depoimento-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .servico-card:hover, .depoimento-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.15);
+  }
+  .valor-item:hover img {
+    transform: scale(1.1);
+  }
+  .valor-item img {
+    transition: transform 0.3s ease;
+  }
 }
 
 /* ===== RESPONSIVO ===== */
@@ -762,7 +948,6 @@ img {
   .sobre { grid-template-columns: 1fr; }
   .servicos-grid { grid-template-columns: repeat(2, 1fr); }
   .depoimentos-grid { grid-template-columns: 1fr; }
-  .contato-container { grid-template-columns: 1fr; }
   .hero-conteudo h1 { font-size: 30px; }
   .buttoncard { padding: 16px 20px; }
   .hero-botoes { gap: 10px; }
@@ -773,4 +958,8 @@ img {
     text-align: center;
     white-space: nowrap;
   }
+}
+
+@media (max-width: 600px) {
+  .footer-container { flex-direction: column; }
 }
